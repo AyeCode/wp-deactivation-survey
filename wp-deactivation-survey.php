@@ -13,7 +13,7 @@ if ( ! class_exists( 'AyeCode_Deactivation_Survey' ) ) {
 
 	class AyeCode_Deactivation_Survey {
 
-		public $version = "1.0.0";
+		public $version = "1.0.1";
 
 		function __construct() {
 			global $pagenow;
