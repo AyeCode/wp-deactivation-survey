@@ -24,13 +24,18 @@ if ( ! class_exists( 'AyeCode_Deactivation_Survey' ) ) {
 }
 
 
-add_filter('ayecode_deactivation_survey_plugins', function($plugins) {
+//add_filter('ayecode_deactivation_survey_plugins', function($plugins) {
+//
+//	$plugins[] = (object)array(
+//		'slug'		=> 'ayecode-deactivation-survey-testing',
+//		'version'	=> '1.0.0'
+//	);
+//
+//	return $plugins;
+//
+//});
 
-	$plugins[] = (object)array(
-		'slug'		=> 'ayecode-deactivation-survey-testing',
-		'version'	=> '1.0.0'
-	);
-
-	return $plugins;
-
-});
+AyeCode_Deactivation_Survey::instance(array(
+	'slug'		=> 'ayecode-deactivation-survey-testing',
+	'version'	=> '1.0.0'
+));

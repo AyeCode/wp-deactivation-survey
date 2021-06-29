@@ -4,30 +4,47 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! is_admin() ) {
-	return;
-}
-
-
 if ( ! class_exists( 'AyeCode_Deactivation_Survey' ) ) {
 
 	class AyeCode_Deactivation_Survey {
 
-		public $version = "1.0.1";
+		/**
+		 * AyeCode_Deactivation_Survey instance.
+		 *
+		 * @access private
+		 * @since  1.0.0
+		 * @var    AyeCode_Deactivation_Survey There can be only one!
+		 */
+		private static $instance = null;
 
-		function __construct() {
+		public static $plugins;
+
+		public $version = "1.0.3";
+
+		public static function instance( $plugin = array() ) {
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof AyeCode_Deactivation_Survey ) ) {
+				self::$instance = new AyeCode_Deactivation_Survey;
+				self::$plugins = array();
+
+				add_action( 'admin_enqueue_scripts', array( self::$instance, 'scripts' ) );
+
+				do_action( 'ayecode_deactivation_survey_loaded' );
+			}
+
+			if(!empty($plugin)){
+				self::$plugins[] = (object)$plugin;
+			}
+
+			return self::$instance;
+		}
+
+		public function scripts() {
 			global $pagenow;
 
 			// Bail if we are not on the plugins page
 			if ( $pagenow != "plugins.php" ) {
 				return;
 			}
-
-			add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
-
-		}
-
-		public function scripts() {
 
 			// Enqueue scripts
 			add_thickbox();
@@ -48,11 +65,13 @@ if ( ! class_exists( 'AyeCode_Deactivation_Survey' ) ) {
 				'skip_and_deactivate'		=> 'Skip &amp; Deactivate',
 				'submit_and_deactivate'		=> 'Submit &amp; Deactivate',
 				'please_wait'				=> 'Please wait',
+				'get_support'				=> 'Get Support',
+				'documentation'				=> 'Documentation',
 				'thank_you'					=> 'Thank you!',
 			));
 
 			// Plugins
-			$plugins = apply_filters('ayecode_deactivation_survey_plugins', array());
+			$plugins = apply_filters('ayecode_deactivation_survey_plugins', self::$plugins);
 
 			// Reasons
 			$defaultReasons = array(
@@ -79,10 +98,5 @@ if ( ! class_exists( 'AyeCode_Deactivation_Survey' ) ) {
 		
 
 	}
-
-	/**
-	 * Run the class if found.
-	 */
-	new AyeCode_Deactivation_Survey();
 
 }

@@ -10,7 +10,8 @@
     {
         var self = this;
         var strings = ayecodeds_deactivate_feedback_form_strings;
-
+        var support_btn = plugin.support_url ? '<a class="button button-primary" href="'+plugin.support_url+'" target="_blank" >'+strings.get_support+'</a>' : '';
+        var documentation = plugin.documentation_url ? ' <a class="button button-primary" href="'+plugin.documentation_url+'" target="_blank" >'+strings.documentation+'</a>' : '';
         this.plugin = plugin;
 
         // Dialog HTML
@@ -24,6 +25,9 @@
 					</p>\
 					<ul class="ayecodeds-deactivate-reasons"></ul>\
 					<input id="ayecode-feedback-other" name="comments" placeholder="' + strings.brief_description + '" style="width: 100%;padding: 5px;display: none;"/>\
+					<p class="ayecodeds-help-buttons" style="float: left;display: none;">\
+					'+support_btn+documentation+'\
+					</p> \
 					<p class="ayecodeds-deactivate-dialog-buttons" style="float: right;">\
 						<input type="submit" class="button confirm" value="' + strings.skip_and_deactivate + '"/>\
 						<button data-remodal-action="cancel" class="button button-primary" onclick="tb_remove();jQuery(\'#ayecode-deactivation-form\').html(\'\');return false;">' + strings.cancel + '</button>\
@@ -45,15 +49,14 @@
                 strings.submit_and_deactivate
             );
 
-            //
+            //hide then we can show if needed
+            jQuery("#ayecode-feedback-other,.ayecodeds-help-buttons").hide();
             if(jQuery(this).val()=="other"){
                 jQuery("#ayecode-feedback-other").attr('placeholder',strings.brief_description ).show();
             }else if(jQuery(this).val()=="found-better-plugin"){
                 jQuery("#ayecode-feedback-other").attr('placeholder',strings.better_plugins_name ).show();
-            }else if(jQuery(this).val()=="found-better-plugin"){
-                jQuery("#ayecode-feedback-other").attr('placeholder',strings.better_plugins_name ).show();
-            }else{
-                jQuery("#ayecode-feedback-other").hide();
+            }else if(jQuery(this).val()=="suddenly-stopped-working" || jQuery(this).val()=="plugin-broke-site" || jQuery(this).val()=="plugin-setup-difficult"){
+                jQuery(".ayecodeds-help-buttons").show();
             }
 
         });
@@ -135,7 +138,7 @@
         {
             var plugin = ayecodeds_deactivate_feedback_form_plugins[i];
             new ayecodeds.DeactivateFeedbackForm(plugin);
-            console.log(plugin);
+            // console.log(plugin);
         }
 
     });
