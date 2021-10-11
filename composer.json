@@ -1,6 +1,6 @@
 {
   "name": "ayecode/wp-deactivation-survey",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "library",
   "description": "Adds a deactivation survey on plugin deactivation.",
   "keywords": ["WordPress","deactivation","survey"],
