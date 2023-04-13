@@ -1,4 +1,4 @@
-= 1.0.5 =
+= 1.0.6 =
 * changed remodal data attribute which was causing issue with shareaholic plugin - CHANGED
 
 = 1.0.4 =
