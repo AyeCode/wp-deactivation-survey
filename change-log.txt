@@ -1,3 +1,6 @@
+= 1.0.7 =
+* Update textdomain - CHANGED
+
 = 1.0.6 =
 * changed remodal data attribute which was causing issue with shareaholic plugin - CHANGED
 
